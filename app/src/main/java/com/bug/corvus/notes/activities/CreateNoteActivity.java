@@ -1,10 +1,12 @@
-package com.bug.corvus.notes;
+package com.bug.corvus.notes.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.bug.corvus.notes.R;
 
 public class CreateNoteActivity extends AppCompatActivity {
 
