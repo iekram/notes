@@ -132,4 +132,5 @@
                 app:layout_constraintTop_toBottomOf="@id/input_note_subtitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+    <include layout="@layout/layout_miscellaneous"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
