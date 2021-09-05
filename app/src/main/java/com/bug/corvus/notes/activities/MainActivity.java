@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==REQUEST_CODE_ADD_NOTE&&resultCode==RESULT_OK){
+        if (requestCode == REQUEST_CODE_ADD_NOTE && resultCode == RESULT_OK) {
             getNotes();
         }
     }
