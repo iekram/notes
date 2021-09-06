@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -58,7 +61,27 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         noteAdapter = new NoteAdapter(noteList, this);
         noteRecyclerView.setAdapter(noteAdapter);
 
-        getNotes(REQUEST_CODE_SHOW_NOTE,false);
+        getNotes(REQUEST_CODE_SHOW_NOTE, false);
+
+        EditText inputSearch = findViewById(R.id.input_search);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                noteAdapter.cancelTimer();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (noteList.size() != 0) {
+                    noteAdapter.searchNotes(s.toString());
+                }
+            }
+        });
     }
 
     @Override
@@ -92,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 } else if (requestCode == REQUEST_CODE_UPDATE_NOTE) {
                     noteList.remove(noteClickedPosition);
 
-                    if (isNoteDeleted){
+                    if (isNoteDeleted) {
                         noteAdapter.notifyItemRemoved(noteClickedPosition);
-                    }else {
+                    } else {
                         noteList.add(noteClickedPosition, notes.get(noteClickedPosition));
                         noteAdapter.notifyItemChanged(noteClickedPosition);
                     }
@@ -111,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             getNotes(REQUEST_CODE_ADD_NOTE, false);
         } else if (requestCode == REQUEST_CODE_UPDATE_NOTE && resultCode == RESULT_OK) {
             if (data != null) {
-                getNotes(REQUEST_CODE_UPDATE_NOTE,data.getBooleanExtra("isNoteDeleted",false));
+                getNotes(REQUEST_CODE_UPDATE_NOTE, data.getBooleanExtra("isNoteDeleted", false));
             }
         }
     }
